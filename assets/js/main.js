@@ -48,47 +48,6 @@
 			offset: function() { return (breakpoints.active('<=mobile') ? 70 : 190); }
 		});
 
-	// Parallax background.
-
-		// Disable parallax on IE/Edge (smooth scrolling is jerky), and on mobile platforms (= better performance).
-			if (browser.name == 'ie'
-			||	browser.name == 'edge'
-			||	browser.mobile)
-				settings.parallax = false;
-
-		if (settings.parallax) {
-
-			var $dummy = $(), $bg;
-
-			$window
-				.on('scroll.overflow_parallax', function() {
-
-					// Adjust background position.
-						$bg.css('background-position', 'center ' + (-1 * (parseInt($window.scrollTop()) / settings.parallaxFactor)) + 'px');
-
-				})
-				.on('resize.overflow_parallax', function() {
-
-					// If we're in a situation where we need to temporarily disable parallax, do so.
-						if (breakpoints.active('<=narrow')) {
-
-							$body.css('background-position', '');
-							$bg = $dummy;
-
-						}
-
-					// Otherwise, continue as normal.
-						else
-							$bg = $body;
-
-					// Trigger scroll handler.
-						$window.triggerHandler('scroll.overflow_parallax');
-
-				})
-				.trigger('resize.overflow_parallax');
-
-		}
-
 	// Poptrox.
 		$('.gallery').poptrox({
 			useBodyOverflow: false,
